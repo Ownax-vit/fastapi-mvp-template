@@ -1,0 +1,62 @@
+[project]
+name = "fastapi-sample"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aiosqlite>=0.21.0",
+    "alembic>=1.15.2",
+    "fastapi>=0.115.12",
+    "gunicorn>=23.0.0",
+    "httpx>=0.28.1",
+    "orjson>=3.11.5",
+    "pydantic>=2.11.3",
+    "pydantic-settings>=2.8.1",
+    "sqlalchemy>=2.0.40",
+    "uvicorn>=0.34.0",
+]
+
+[dependency-groups]
+dev = [
+    "bandit>=1.9.2",
+    "black>=25.1.0",
+    "debugpy>=1.8.14",
+    "isort>=6.0.1",
+    "lint>=1.2.1",
+    "mypy>=1.15.0",
+    "pytest>=8.3.5",
+    "ruff>=0.11.4",
+]
+
+[tool.mypy]
+python_version = 3.13
+strict = true
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "W", "C", "N", "B"]
+ignore = ["E501"]
+target-version = "py313"
+
+[tool.pylint]
+max-line-length = 88
+disable = [
+    "C0114",  # Missing module docstring
+    "C0115",  # Missing class docstring
+    "C0116",  # Missing function or method docstring
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py313']
+
+[tool.isort]
+profile = "black"
+line_length = 88
+multi_line_output = 3
+skip_gitignore = true
+skip_glob = ["**/migrations/*", "**/settings/*"]
+src_paths = ["src"]
+skip = ["alembic"]

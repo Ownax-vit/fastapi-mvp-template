@@ -1,0 +1,18 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner-dev
+    environment:
+      - DATABASE_URI
+    ports:
+      - 8000:8000
+      - 5678:5678
+    volumes:
+      - .:/workspace:cached
+      - /etc/localtime:/etc/localtime:ro
+
+networks:
+  default:
+    name: app-network
