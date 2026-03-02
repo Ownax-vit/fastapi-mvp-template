@@ -3,6 +3,7 @@ from uuid import UUID
 
 from pydantic import ConfigDict, Field
 
+from src.models.types import Gender
 from src.schemas.base import Base, BasePagination
 
 
@@ -10,6 +11,7 @@ class UserBase(Base):
     name: str = Field(..., description="user name")
     stars: int = Field(..., description="stars")
     comment: str = Field(..., description="comment")
+    gender: Gender = Field(..., description="gender")
 
     model_config = ConfigDict(title="USER BASE")
 

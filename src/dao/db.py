@@ -13,7 +13,6 @@ from sqlalchemy.ext.asyncio import (
 from src.core.config import settings
 from src.core.logging import get_logger
 
-
 logger = get_logger(__name__)
 
 
@@ -64,7 +63,9 @@ class Database:
             autocommit=False,
         )
 
-    async def get_session(self,) -> AsyncGenerator[AsyncSession]:
+    async def get_session(
+        self,
+    ) -> AsyncGenerator[AsyncSession]:
         """Get a new session."""
         async with self._sessin_maker() as session:
             try:

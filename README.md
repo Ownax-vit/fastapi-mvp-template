@@ -15,7 +15,7 @@ TODO:
 [v] logger
 [v] починить миграции с sqlite
 [] компоненты инфраструктуры (http client, redis)
-[] Faststream для aqmp интерфейса
+[] Faststream для amqp интерфейса
 [] Apscheduler для фоновых тасок
 [] тесты
 [] CICD
