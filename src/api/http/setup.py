@@ -9,10 +9,12 @@ from src.api.http.exceptions import (
     general_exception_handler,
 )
 from src.api.http.middlewares import config_middleware
+from src.api.http.routes.ai import router as ai_router
 from src.api.http.routes.health import router as health_router
 from src.api.http.routes.users import router as users_router
 from src.core.config import settings
 from src.core.logging import get_logger
+from src.core.setup import setup, shutdown
 from src.exceptions.base import ApplicationError
 
 logger = get_logger(__name__)
@@ -23,14 +25,18 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     logger.info(f"Starting {settings.app_name} v{__version__}")
     logger.info(f"Debug mode: {settings.app_debug}")
 
+    await setup()
+
     yield
 
+    await shutdown()
     logger.info(f"Shutting down {settings.app_name}")
 
 
 def setup_routes(app: FastAPI) -> None:
     app.include_router(health_router)
     app.include_router(users_router, prefix="/api/v1", tags=["users"])
+    app.include_router(ai_router, prefix="/api/v1", tags=["ai"])
 
 
 def config_app() -> FastAPI:
@@ -62,7 +68,7 @@ def config_app() -> FastAPI:
 
     app.add_exception_handler(Exception, general_exception_handler)
 
-    app.add_exception_handler(ApplicationError, application_exception_handler) # type: ignore
+    app.add_exception_handler(ApplicationError, application_exception_handler)  # type: ignore
 
     setup_routes(app)
 

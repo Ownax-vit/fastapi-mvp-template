@@ -3,7 +3,6 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-
     app_name: str = Field(
         default="FastAPI APP",
         description="Application name",
@@ -47,6 +46,16 @@ class Settings(BaseSettings):
     port: int = Field(
         default=8000,
         description="Server port",
+    )
+
+    open_router_api_key: str = Field(
+        ...,
+    )
+    phoenix_url: str = Field(
+        ...,
+    )
+    phoenix_api_key: str | None = Field(
+        default=None,
     )
 
     model_config = SettingsConfigDict(

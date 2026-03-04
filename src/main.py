@@ -3,6 +3,7 @@ import uvicorn
 from src.api.http.setup import app
 from src.core.config import settings
 
+
 if __name__ == "__main__":
     uvicorn.run(
         app,
