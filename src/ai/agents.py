@@ -1,3 +1,5 @@
+from typing import cast
+
 import nest_asyncio
 from pydantic_ai import Agent
 from pydantic_ai.models.openrouter import OpenRouterModel
@@ -14,7 +16,7 @@ model = OpenRouterModel(
 )
 
 
-roulette_agent = Agent(
+gender_agent = Agent(
     model=model,
     deps_type=str,
     output_type=Gender,

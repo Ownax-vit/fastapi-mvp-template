@@ -11,7 +11,6 @@ class UserBase(Base):
     name: str = Field(..., description="user name")
     stars: int = Field(..., description="stars")
     comment: str = Field(..., description="comment")
-    gender: Gender = Field(..., description="gender")
 
     model_config = ConfigDict(title="USER BASE")
 
@@ -22,6 +21,7 @@ class UserIn(UserBase): ...
 class User(UserBase):
     id: UUID = Field(..., description="ID USER")
     created_at: datetime = Field(..., description="created at")
+    gender: Gender = Field(..., description="gender")
 
 
 class UserPagination(BasePagination):

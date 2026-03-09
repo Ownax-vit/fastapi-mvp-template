@@ -26,7 +26,7 @@ def before_cursor_execute(
 ) -> None:
     """Execution of previous events"""
 
-    context._query_start_time = time.time()
+    context._query_start_time = time.time()     # type: ignore[attr-defined]
 
 
 def after_cursor_execute(

@@ -1,28 +1,24 @@
-from src.connectors.genderize import Genderize
 from src.core.logging import get_logger
 from src.dao.users import UserDAO
 from src.exceptions.users import UserNotFoundError
-from src.models.types import Gender
 from src.models.users import User as UserModel
 from src.models.users import UserId
 from src.schemas.users import User, UserIn, UserPagination
+from src.services.gender_receiver import GenderReceiver
 
 logger = get_logger(__name__)
 
 
 class UserCreate:
-    def __init__(self, dao: UserDAO, genderize: Genderize):
+    def __init__(self, dao: UserDAO, gender_receiver: GenderReceiver):
         self._dao = dao
-        self._genderize = genderize
+        self._gender_receiver = gender_receiver
 
     async def execute(self, user_in: UserIn) -> User:
         user = UserModel(**user_in.model_dump())
 
-        genderize_resp = await self._genderize.get_by_one_name(name=user.name)
-        if genderize_resp.probability > 95:
-            user.name = genderize_resp.gender
-        else:
-            user.name = Gender.unknown
+        gender = await self._gender_receiver.get_gender_by_name(user.name)
+        user.gender = gender
 
         user = await self._dao.create(user)
         return User.model_validate(user)

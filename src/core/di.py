@@ -1,12 +1,10 @@
-from urllib.parse import urlparse
-
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.connectors.genderize import Genderize
+from src.ai.agents import gender_agent
 from src.dao.db import database
 from src.dao.users import UserDAOImpl
-from src.infrastructure.http_client import HTTPXClient, Url
+from src.services.gender_receiver import GenderReceiverAI
 from src.services.users import UserCreate, UserDelete, UserList, UserReceive
 
 
@@ -28,11 +26,8 @@ def get_interactor_user_create(
     """
     user_dao = UserDAOImpl(session)
 
-    url = Url(
-        urlparse("https://api.genderize.io/")
-    )  # TODO оказываетя сервис платный, заменить бесплатным аналогом
-    genderize = Genderize(http_client=HTTPXClient(base_url=url))
-    return UserCreate(user_dao, genderize=genderize)
+    gender_receiver = GenderReceiverAI(agent=gender_agent)
+    return UserCreate(user_dao, gender_receiver=gender_receiver)
 
 
 def get_interactor_user_list(
