@@ -1,7 +1,7 @@
-from openinference.instrumentation.pydantic_ai import OpenInferenceSpanProcessor
 from opentelemetry import trace
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
 from opentelemetry.sdk.trace import TracerProvider
+from openinference.instrumentation.pydantic_ai import OpenInferenceSpanProcessor
 from opentelemetry.sdk.trace.export import SimpleSpanProcessor
 
 from src.core.config import settings

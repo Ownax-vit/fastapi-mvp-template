@@ -77,4 +77,4 @@ class Settings(BaseSettings):
         return v.upper() if isinstance(v, str) else str(v).upper()
 
 
-settings = Settings()  # type: ignore[call-arg]
+settings = Settings()
