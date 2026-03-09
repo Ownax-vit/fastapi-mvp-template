@@ -30,15 +30,15 @@ dev = [
     "debugpy>=1.8.14",
     "isort>=6.0.1",
     "lint>=1.2.1",
-    "mypy>=1.15.0",
     "pytest>=8.3.5",
     "ruff>=0.11.4",
+    "ty>=0.0.21",
 ]
 
-[tool.mypy]
-python_version = 3.13
-strict = true
-ignore_missing_imports = true
+[tool.ty.src]
+include = [
+    "src",
+]
 
 [tool.ruff]
 line-length = 88
@@ -63,6 +63,6 @@ profile = "black"
 line_length = 88
 multi_line_output = 3
 skip_gitignore = true
-skip_glob = ["**/migrations/*", "**/settings/*"]
+skip_glob = ["**/migrations/*"]
 src_paths = ["src"]
 skip = ["alembic"]
